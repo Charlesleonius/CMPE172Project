@@ -23,13 +23,14 @@ export default withAuth(class Login extends Component {
         this.checkAuthentication();
     }
 
+
     onSuccess = (res) => {
+        console.log(res);
         if (res.status === 'SUCCESS') {
-            console.log(res.session.token)
-            window.localStorage.setItem('accessToken', res.session.token)
-            return this.props.auth.redirect({
-                sessionToken: res.session.token
-            });
+            return this.props.auth.redirect
+                ({
+                    sessionToken: res.session.token
+                });
         }
     }
 
@@ -44,7 +45,6 @@ export default withAuth(class Login extends Component {
             <SignInWidget
                 baseUrl={this.props.baseUrl}
                 onSuccess={this.onSuccess}
-                onError={this.onError} 
-            />;
+                onError={this.onError} />;
     }
 });
