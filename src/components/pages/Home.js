@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { withAuth } from '@okta/okta-react';
-import Footer1 from '../layout/Footer1'
-//import Portal from '../Portal.png'; 
-//import "./Home.css"
+import Footer from '../layout/GlobalFooter'
 
 export default withAuth(
   class Home extends Component {
@@ -65,7 +63,7 @@ export default withAuth(
         <div className="jumbotron">
           <h1 className="display-4">Employee Staff Portal</h1>
           {mainContent}
-          <Footer1/>
+          <Footer/>
         </div>
 
       );

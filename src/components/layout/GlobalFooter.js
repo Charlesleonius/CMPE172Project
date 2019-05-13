@@ -1,7 +1,6 @@
 import React from 'react';
-//import Footer from './Footer.css'
 
-class Footer1 extends React.Component {
+class GlobalFooter extends React.Component {
   render() {
     return (
       <footer className="footer text-center">
@@ -18,5 +17,5 @@ class Footer1 extends React.Component {
   }
 }
 
-export default Footer1; 
+export default GlobalFooter;
 

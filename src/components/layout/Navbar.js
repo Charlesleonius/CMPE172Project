@@ -35,7 +35,7 @@ class Navbar extends Component {
                 </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/EmployeesList">
+                <Link className="nav-link" activestyle={{color: 'red'}} to="/EmployeesList">
                   Employees
                 </Link>
               </li>

@@ -4,14 +4,15 @@ import axios from 'axios';
 
 const Employee = props => (
     <tr>
-        <td>{props.employee.employees_Name}</td>
-        <td>{props.employee.employees_Email}</td>
-        <td>{props.employee.employees_ID}</td>
-        <td>{props.employee.employees_Manager}</td>
-        <td>{props.employee.employees_Team}</td>
-        <td>{props.employee.employees_Status}</td>
-        <td style={{ backgroundColor: "#353f48", textAlign: "center" }}>
-            <Link to={"/edit/" + props.employee._id} style={{ color: "white" }}>Edit</Link>
+        <td>{props.employee.firstName + " " + props.employee.lastName}</td>
+        <td>{props.employee.email}</td>
+        <td style={{textAlign: 'center'}}>{props.employee.id}</td>
+        <td style={{textAlign: 'center'}}>{props.employee.managerId}</td>
+        <td style={{textAlign: 'center'}}>{props.employee.departentNumber}</td>
+        <td style={{ textAlign: "center", padding: 0 }}>
+            <Link to={"/edit/" + props.employee._id} style={{ color: "white", width: "100%" }}>
+                <button style={{width: "100%"}} className="btn btn-dark btn-lg">Edit</button>
+            </Link>
         </td>
     </tr>
 )
@@ -24,32 +25,46 @@ export default class EmployeesList extends Component {
     }
 
     componentDidMount() {
-        axios.get('http://localhost:8080/employees')
-            .then(response => {
-                console.log(response.data)
-                this.setState({ employees: response.data });
-            })
-            .catch(function (error) {
-                console.log(error);
-            })
+        let oktaTokenStorage = JSON.parse(window.localStorage.getItem("okta-token-storage"));
+        let accessToken = oktaTokenStorage.accessToken.accessToken;
+        if (!accessToken) {
+            this.props.auth.logout("/");
+            return
+        }
+        axios.get('http://localhost:8080/employees', {
+            headers: {
+                Authorization: 'Bearer ' + accessToken //the token is a variable which holds the token
+            }
+        }).then(response => {
+            this.setState({ employees: response.data });
+        }).catch(function (error) {
+            console.log(error);
+        });
     }
 
     componentDidUpdate() {
-        axios.get('http://localhost:4000/employees')
-            .then(response => {
-                this.setState({ employees: response.data });
-            })
-            .catch(function (error) {
-                console.log(error);
-            })
+        let oktaTokenStorage = JSON.parse(window.localStorage.getItem("okta-token-storage"));
+        let accessToken = oktaTokenStorage.accessToken.accessToken;
+        if (!accessToken) {
+            this.props.auth.logout("/");
+            return
+        }
+        axios.get('http://localhost:8080/employees', {
+            headers: {
+                Authorization: 'Bearer ' + accessToken //the token is a variable which holds the token
+            }
+        }).then(response => {
+            this.setState({ employees: response.data });
+        }).catch(function (error) {
+            console.log(error);
+        })
     }
 
     employeesList() {
-        var test = this.state.employees.map(function (currentEmployee, i) {
+        var employeeComponents = this.state.employees.map(function (currentEmployee, i) {
             return <Employee employee={currentEmployee} key={i} />;
         });
-        console.log(test);
-        return test
+        return employeeComponents;
     }
 
     render() {
@@ -68,7 +83,6 @@ export default class EmployeesList extends Component {
                             <th>Employee ID</th>
                             <th>Employee Manager</th>
                             <th>Employee Team</th>
-                            <th>Employee Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>

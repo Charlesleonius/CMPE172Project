@@ -2,6 +2,7 @@
   "name": "cgep",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:8080",
   "dependencies": {
     "@material-ui/core": "^3.9.3",
     "@okta/okta-react": "^1.2.0",
@@ -24,6 +25,7 @@
     "react-scripts": "3.0.1"
   },
   "scripts": {
+    "now-build": "react-scripts build && mv build dist",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

@@ -1,6 +1,7 @@
 {
     "version": 2,
     "name": "CMPE172Project",
+    "alias": ["cges.ml", "www.cges.ml"],
     "builds": [
         { "src": "package.json", "use": "@now/static-build" }
     ],
@@ -11,6 +12,6 @@
         {"src": "^/manifest.json", "dest": "/manifest.json"},
         {"src": "^/service-worker.js", "headers": {"cache-control": "s-maxage=0"}, "dest": "/service-worker.js"},
         {"src": "^/precache-manifest.(.*)", "dest": "/precache-manifest.$1"},
-        {"src": "^/(.*)", "dest": "/index.html"}
+        {"src": "^/(.*)", "dest": "public/index.html"}
     ]
 }
